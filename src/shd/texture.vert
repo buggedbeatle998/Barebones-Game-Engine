@@ -2,10 +2,8 @@
 
 precision mediump float;
 
+
 layout (binding = 0) uniform readonly writeonly image3D tex_sheet;
-//layout (std140, binding = 0) uniform readonly buffer Texture_Sheets {
-//    readonly writeonly image2D sheet[];
-//} tex_sheet;
 
 layout (location = 0) in vec2 v_pos;
 layout (location = 1) in mat4 mat_pos;
@@ -18,10 +16,14 @@ out gl_PerVertex {
     vec4 gl_Position;
 };
 
+
+const vec4 consts = vec4(0.0, 1.0, 2.0, -1.0);
+
+
 void main(void) {
-    gl_Position = mat_pos * vec4(v_pos, 0.0, 1.0);
-    tex_coords = v_pos * 0.5 + 0.5;
+    gl_Position = fma(mat_pos * vec4(v_pos * tex_quad.zw, 0.0, 1.0), consts.zzxy, consts.wwxx);
+    tex_coords = v_pos + consts.xy;
     vec3 img_size = imageSize(tex_sheet);
-    tex_coords = (tex_coords * tex_quad.zw + tex_quad.xy) / img_size.xy;
+    tex_coords = fma(tex_coords, tex_quad.zw, tex_quad.xy) / img_size.xy;
     _tex_i = tex_i / img_size.z;
 }
