@@ -12,10 +12,12 @@ typedef struct {
     float *mat_pos;
     int32_t *tex_i;
     uint32_t *tex_quad;
+    float *blend;
     uint buff_indir;
     uint buff_mats;
     uint buff_texis;
     uint buff_quads;
+    uint buff_blends;
 } Sprites;
 
 

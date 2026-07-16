@@ -44,6 +44,7 @@ static const GLuint vpos_loc = 0;
 static const GLuint mat_loc = 1;
 static const GLuint texi_loc = 5;
 static const GLuint texquad_loc = 6;
+static const GLuint imgblnd_loc = 7;
 
 static const GLuint cam_loc = 1;
 
@@ -107,6 +108,12 @@ int graphics_init(Graphics_Data *data, const size_t num_sheets, const char *shee
     data->sprites->buff_quads = make_buffer(data, GL_ARRAY_BUFFER, GL_DYNAMIC_DRAW,
             sizeof(uint) * 4 * MAX_SPRITES, NULL);
     
+    for (int i = 0; i < 4 * MAX_SPRITES; ++i) {
+        data->sprites->blend[i] = 1.f;
+    }
+    data->sprites->buff_blends = make_buffer(data, GL_ARRAY_BUFFER, GL_DYNAMIC_DRAW,
+            sizeof(float) * 4 * MAX_SPRITES, data->sprites->blend);
+    
     data->render = glad_glCreateProgram();
     shd_loadatt(data->render, "../shd/texture.vert.spv", GL_VERTEX_SHADER, "main");
     shd_loadatt(data->render, "../shd/texture.frag.spv", GL_FRAGMENT_SHADER, "main");
@@ -132,6 +139,11 @@ int graphics_init(Graphics_Data *data, const size_t num_sheets, const char *shee
     glad_glEnableVertexAttribArray(texquad_loc);
     glad_glVertexAttribIPointer(texquad_loc, 4, GL_UNSIGNED_INT, sizeof(uint) * 4, (void *)0);
     glad_glVertexAttribDivisor(texquad_loc, 1);
+    
+    glad_glBindBuffer(GL_ARRAY_BUFFER, data->sprites->buff_blends);
+    glad_glEnableVertexAttribArray(imgblnd_loc);
+    glad_glVertexAttribPointer(imgblnd_loc, 4, GL_FLOAT, true, sizeof(float) * 4, (void *)0);
+    glad_glVertexAttribDivisor(imgblnd_loc, 1);
 
     glad_glUseProgram(data->render);
     glad_glUniform1i(tex_loc, 0);

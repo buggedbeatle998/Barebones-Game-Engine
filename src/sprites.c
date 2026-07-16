@@ -49,13 +49,29 @@ void sheet_move(Sprites *sprites, int idx, uint32_t quadx, uint32_t quady, uint3
 }
 
 
+void blend_set(Sprites *sprites, int idx, float red, float green, float blue, float alpha) {
+    sprites->blend[idx * 4 + 0] = red;
+    sprites->blend[idx * 4 + 1] = green;
+    sprites->blend[idx * 4 + 2] = blue;
+    sprites->blend[idx * 4 + 3] = alpha;
+}
+
+
+void blend_blend(Sprites *sprites, int idx, float red, float green, float blue, float alpha) {
+    sprites->blend[idx * 4 + 0] *= red;
+    sprites->blend[idx * 4 + 1] *= green;
+    sprites->blend[idx * 4 + 2] *= blue;
+    sprites->blend[idx * 4 + 3] *= alpha;
+}
+
+
 void update_num(Sprites *sprites) {
     glad_glBindBuffer(GL_DRAW_INDIRECT_BUFFER, sprites->buff_indir);
     glad_glBufferSubData(GL_DRAW_INDIRECT_BUFFER, sizeof(uint) * 1, sizeof(uint), &sprites->num_sprites);
 }
 
 
-void update_range(Sprites *sprites, int idx, int len, bool matrix, bool sheet_num, bool tex_quad) {
+void update_range(Sprites *sprites, int idx, int len, bool matrix, bool sheet_num, bool tex_quad, bool blend) {
     if (matrix) {
         glad_glBindBuffer(GL_ARRAY_BUFFER, sprites->buff_mats);
         glad_glBufferSubData(GL_ARRAY_BUFFER, sizeof(float) * 16 * idx, sizeof(float) * 16 * len, sprites->mat_pos + 16 * idx);
@@ -67,5 +83,9 @@ void update_range(Sprites *sprites, int idx, int len, bool matrix, bool sheet_nu
     if (tex_quad) {
         glad_glBindBuffer(GL_ARRAY_BUFFER, sprites->buff_quads);
         glad_glBufferSubData(GL_ARRAY_BUFFER, sizeof(uint) * 4 * idx, sizeof(uint) * 4 * len, sprites->tex_quad + 4 * idx);
+    }
+    if (blend) {
+        glad_glBindBuffer(GL_ARRAY_BUFFER, sprites->buff_blends);
+        glad_glBufferSubData(GL_ARRAY_BUFFER, sizeof(float) * 4 * idx, sizeof(float) * 4 * len, sprites->blend + 4 * idx);
     }
 }

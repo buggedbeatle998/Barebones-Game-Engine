@@ -6,9 +6,14 @@
 
 int main(void) {
     const char *sheet_files[] = {"../assets/tex_alien.png", "../assets/tex_test.png"};
-    Graphics_Data *graphics_data = &(Graphics_Data){{0.f, 10.f, 0.f, 0.f, 0.f, 1.f}};
-    graphics_data->sprites = &(Sprites){0,
-        malloc(sizeof(float) * 16 * MAX_SPRITES), malloc(sizeof(int32_t) * MAX_SPRITES), malloc(sizeof(uint32_t) * 4 * MAX_SPRITES)};
+    Graphics_Data *graphics_data = &(Graphics_Data){.main_cam={0.f, 10.f, 0.f, 0.f, 0.f, 1.f}};
+    graphics_data->sprites = &(Sprites){
+        .num_sprites=0,
+        .mat_pos=malloc(sizeof(float) * 16 * MAX_SPRITES),
+        .tex_i=malloc(sizeof(int32_t) * 1 * MAX_SPRITES),
+        .tex_quad=malloc(sizeof(uint32_t) * 4 * MAX_SPRITES),
+        .blend=malloc(sizeof(float) * 4 * MAX_SPRITES)
+    };
     int exit_code;
     if ((exit_code = graphics_init(graphics_data, sizeof(sheet_files) / sizeof(char *), sheet_files)))
         return exit_code;

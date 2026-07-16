@@ -16,8 +16,11 @@ void matrix_rotate(Sprites *sprites, int idx, float angle);
 void sheet_set(Sprites *sprites, int idx, int32_t sheet_num, uint32_t quadx, uint32_t quady, uint32_t sizex, uint32_t size_y);
 void sheet_move(Sprites *sprites, int idx, uint32_t quadx, uint32_t quady, uint32_t sizex, uint32_t size_y);
 
+void blend_set(Sprites *sprites, int idx, float red, float green, float blue, float alpha);
+void blend_blend(Sprites *sprites, int idx, float red, float green, float blue, float alpha);
+
 void update_num(Sprites *sprites);
-void update_range(Sprites *sprites, int idx, int len, bool matrix, bool sheet_num, bool tex_quad);
+void update_range(Sprites *sprites, int idx, int len, bool matrix, bool sheet_num, bool tex_quad, bool blend);
 
 
 #endif
