@@ -9,7 +9,7 @@ void sprite_append(Sprites *sprites, int32_t sheet_num, uint32_t quadx, uint32_t
 void sprite_pop(Sprites *sprites, int num);
 
 void matrix_set(Sprites *sprites, int idx, int scalex, int scaley, int posx, int posy);
-void matrix_translate(Sprites *sprites, int idx, float changex, float changey);
+void matrix_translate(Sprites *sprites, int idx, int changex, int changey);
 void matrix_scale(Sprites *sprites, int idx, float scalex, float scaley);
 void matrix_rotate(Sprites *sprites, int idx, float angle);
 

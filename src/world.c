@@ -14,7 +14,8 @@ int world_init(Sprites *sprites) {
 
 
 int world_step(Sprites *sprites) {
-    
+    matrix_translate(sprites, 1, 1, 0);
+    update_range(sprites, 1, 1, true, false, false);
 
     return 0;
 }

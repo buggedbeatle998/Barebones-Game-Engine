@@ -20,18 +20,18 @@ void matrix_set(Sprites *sprites, int idx, int scalex, int scaley, int posx, int
 }
 
 
-void matrix_translate(Sprites *sprites, int idx, float changex, float changey) {
-    trans_translate(sprites->mat_pos + sizeof(float) * 16 * idx, changex, changey);
+void matrix_translate(Sprites *sprites, int idx, int changex, int changey) {
+    trans_translate(sprites->mat_pos + 16 * idx, (float)changex / tex_w, (float)changey / tex_h);
 }
 
 
 void matrix_scale(Sprites *sprites, int idx, float scalex, float scaley) {
-    trans_scale(sprites->mat_pos + sizeof(float) * 16 * idx, scalex, scaley);
+    trans_scale(sprites->mat_pos + 16 * idx, scalex, scaley);
 }
 
 
 void matrix_rotate(Sprites *sprites, int idx, float angle) {
-    trans_rotate(sprites->mat_pos + sizeof(float) * 16 * idx, angle);
+    trans_rotate(sprites->mat_pos + 16 * idx, angle);
 }
 
 

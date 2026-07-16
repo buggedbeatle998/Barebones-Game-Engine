@@ -10,7 +10,6 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../include/stb_image.h"
-#include "linmaths.h"
 
 #define SPEED 0.05f
 
@@ -148,7 +147,6 @@ int graphics_init(Graphics_Data *data, const size_t num_sheets, const char *shee
 int graphics_step(Graphics_Data *data) {
     int width, height;
     int stop = 0;
-    //time_t tstart = SDL_GetPerformanceCounter();
 
     SDL_Event ev;
     while (SDL_PollEvent(&ev)) {

@@ -1,6 +1,8 @@
 #include "graphics.h"
 #include "world.h"
 
+#define FPS 60
+
 
 int main(void) {
     const char *sheet_files[] = {"../assets/tex_alien.png", "../assets/tex_test.png"};
@@ -12,12 +14,18 @@ int main(void) {
         return exit_code;
     if ((exit_code = world_init(graphics_data->sprites)))
         return exit_code;
-
+    
+    const uint64_t tpf = SDL_GetPerformanceFrequency() / FPS;
+    time_t tstart, tend;
     while (!exit_code) {
         if ((exit_code = graphics_step(graphics_data)))
             break;
         // wait
-        exit_code = world_step(graphics_data->sprites);
+        tend = SDL_GetPerformanceCounter();
+        if (tend - tstart >= tpf) {
+            tstart = tend;
+            exit_code = world_step(graphics_data->sprites);
+        }
     };
 
     graphics_destroy(graphics_data);
