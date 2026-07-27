@@ -9,7 +9,7 @@
 #include <time.h>
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "../include/stb_image.h"
+#include "../../include/stb_image.h"
 
 #define SPEED 0.05f
 

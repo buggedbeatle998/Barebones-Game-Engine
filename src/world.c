@@ -1,6 +1,6 @@
 #include "world.h"
 
-#include "sprites.h"
+#include "engine/sprites.h"
 
 
 int world_init(Sprites *sprites) {

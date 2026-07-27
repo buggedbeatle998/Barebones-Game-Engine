@@ -2,7 +2,7 @@
 #define FUNC_WORLD
 
 
-#include "sprite_struct.h"
+#include "engine/sprite_struct.h"
 
 
 int world_init(Sprites *sprites);

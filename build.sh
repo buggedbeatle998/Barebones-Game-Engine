@@ -2,11 +2,11 @@ if [ $# -eq 0 ]; then
     echo "Please supply a project name!"
 else
     rm shd/*
-    cd src/shd/
+    cd src/engine/shd/
     for file in *; do
-        glslangValidator -G $file -o ../../shd/${file}.spv
+        glslangValidator -G $file -o ../../../shd/${file}.spv
     done
-    cd ../../
+    cd ../../../
     if [ -f bin/$1 ]; then
         rm bin/$1
     fi

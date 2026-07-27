@@ -6,7 +6,7 @@
 
 #include "sprite_struct.h"
 
-#include "../include/glad/glad.h"
+#include "../../include/glad/glad.h"
 #include <SDL3/SDL.h>
 
 #define MAX_SPRITES 1000
