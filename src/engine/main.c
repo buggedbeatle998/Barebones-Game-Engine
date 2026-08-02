@@ -1,11 +1,9 @@
 #include "graphics.h"
-#include "world.h"
-
-#define FPS 60
+#include "../world.h"
 
 
+#include <stdio.h>
 int main(void) {
-    const char *sheet_files[] = {"../assets/tex_alien.png", "../assets/tex_test.png"};
     Graphics_Data *graphics_data = &(Graphics_Data){.main_cam={0.f, 10.f, 0.f, 0.f, 0.f, 1.f}};
     graphics_data->sprites = &(Sprites){
         .num_sprites=0,

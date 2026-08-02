@@ -2,7 +2,12 @@
 #define FUNC_WORLD
 
 
-#include "public_structs.h"
+#include "engine/public_structs.h"
+
+#define FPS 60
+
+
+static const char *sheet_files[] = {"../assets/tex_fonts.png", "../assets/tex_test.png"};
 
 
 int world_init(Sprites *sprites);

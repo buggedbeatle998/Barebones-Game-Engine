@@ -7,6 +7,7 @@
 
 void sprite_append(Sprites *sprites, int32_t sheet_num, uint32_t quadx, uint32_t quady, uint32_t sizex, uint32_t sizey, int scalex, int scaley, int posx, int posy);
 void sprite_pop(Sprites *sprites, int num);
+int  sprites_len(Sprites *sprites);
 
 void matrix_set(Sprites *sprites, int idx, int scalex, int scaley, int posx, int posy);
 void matrix_translate(Sprites *sprites, int idx, int changex, int changey);

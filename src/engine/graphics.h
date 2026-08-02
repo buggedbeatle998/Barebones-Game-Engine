@@ -9,7 +9,7 @@
 #include "../../include/glad/glad.h"
 #include <SDL3/SDL.h>
 
-#define MAX_SPRITES 1000
+#define MAX_SPRITES 10000
 #define tex_w 1280
 #define tex_h 960
 

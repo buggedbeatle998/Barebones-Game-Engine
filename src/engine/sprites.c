@@ -15,6 +15,11 @@ void sprite_pop(Sprites *sprites, int num) {
 }
 
 
+int sprites_len(Sprites *sprites) {
+    return sprites->num_sprites;
+}
+
+
 void matrix_set(Sprites *sprites, int idx, int scalex, int scaley, int posx, int posy) {
     trans_base(sprites->mat_pos + 16 * idx, scalex, scaley, (float)posx / tex_w, (float)posy / tex_h);
 }
