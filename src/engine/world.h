@@ -2,7 +2,7 @@
 #define FUNC_WORLD
 
 
-#include "engine/public_structs.h"
+#include "public_structs.h"
 
 
 int world_init(Sprites *sprites);

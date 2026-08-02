@@ -1,5 +1,5 @@
 #include "graphics.h"
-#include "../world.h"
+#include "world.h"
 
 #define FPS 60
 
