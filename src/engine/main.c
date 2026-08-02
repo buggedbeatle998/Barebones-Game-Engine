@@ -14,6 +14,9 @@ int main(void) {
         .tex_quad=malloc(sizeof(uint32_t) * 4 * MAX_SPRITES),
         .blend=malloc(sizeof(float) * 4 * MAX_SPRITES)
     };
+
+    Keys *keys = &(Keys){};
+
     int exit_code;
     if ((exit_code = graphics_init(graphics_data, sizeof(sheet_files) / sizeof(char *), sheet_files)))
         return exit_code;
@@ -23,13 +26,34 @@ int main(void) {
     const uint64_t tpf = SDL_GetPerformanceFrequency() / FPS;
     time_t tstart, tend;
     while (!exit_code) {
+        SDL_Event ev;
+        while (SDL_PollEvent(&ev)) {
+            switch (ev.type) {
+                case SDL_EVENT_QUIT:
+                    exit_code = 1;
+                    break;
+                
+                case SDL_EVENT_KEY_DOWN:
+                case SDL_EVENT_KEY_UP:
+                    key_update(keys, ev.key.key, ev.key.down);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        if (exit_code)
+            break;
+
         if ((exit_code = graphics_step(graphics_data)))
             break;
-        // wait
+
+        // Only at 1/60s intervals
         tend = SDL_GetPerformanceCounter();
         if (tend - tstart >= tpf) {
             tstart = tend;
-            exit_code = world_step(graphics_data->sprites);
+            exit_code = world_step(graphics_data->sprites, keys);
+            keys_clear_events(keys);
         }
     };
 

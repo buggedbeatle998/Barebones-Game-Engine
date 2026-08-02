@@ -2,11 +2,11 @@
 #define FUNC_WORLD
 
 
-#include "engine/sprite_struct.h"
+#include "engine/public_structs.h"
 
 
 int world_init(Sprites *sprites);
-int world_step(Sprites *sprites);
+int world_step(Sprites *sprites, Keys *keys);
 void world_destroy(void);
 
 

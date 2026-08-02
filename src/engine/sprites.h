@@ -2,7 +2,7 @@
 #define FUNC_SPRITES
 
 
-#include "sprite_struct.h"
+#include "public_structs.h"
 
 
 void sprite_append(Sprites *sprites, int32_t sheet_num, uint32_t quadx, uint32_t quady, uint32_t sizex, uint32_t sizey, int scalex, int scaley, int posx, int posy);

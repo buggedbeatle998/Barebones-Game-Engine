@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 
-#include "sprite_struct.h"
+#include "public_structs.h"
 
 #include "../../include/glad/glad.h"
 #include <SDL3/SDL.h>

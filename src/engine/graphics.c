@@ -58,9 +58,6 @@ static GLuint make_draw_tex(Graphics_Data *gdata, const size_t dtex_w, const siz
 static GLuint make_sheet_tex(Graphics_Data *gdata, const size_t stex_w, const size_t stex_h, const size_t num, const GLenum texture, const void *pixels);
 static GLuint make_buffer(Graphics_Data *gdata, const GLenum type, const GLenum usage, const size_t size, const void *data);
 
-static uint8_t handle_keys(SDL_Event ev, uint8_t velo);
-//static void handle_move(float cam[6], uint8_t velo);
-
 
 
 int graphics_init(Graphics_Data *data, const size_t num_sheets, const char *sheet_files[static 1]) {
@@ -160,25 +157,6 @@ int graphics_step(Graphics_Data *data) {
     int width, height;
     int stop = 0;
 
-    SDL_Event ev;
-    while (SDL_PollEvent(&ev)) {
-        switch (ev.type) {
-            case SDL_EVENT_QUIT:
-                stop = 1;
-                break;
-            
-            case SDL_EVENT_KEY_DOWN:
-            case SDL_EVENT_KEY_UP:
-                data->velo = handle_keys(ev, data->velo);
-                break;
-
-            default:
-                break;
-        }
-    }
-    //if (data->velo)
-    //    handle_move(data->main_cam, data->velo);
-
     SDL_RenderClear(data->screen);
     SDL_GetWindowSize(data->window, &width, &height);
     glad_glViewport(0, 0, width, height);
@@ -187,15 +165,10 @@ int graphics_step(Graphics_Data *data) {
 
     glad_glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glad_glDrawArraysIndirect(GL_TRIANGLE_STRIP, 0);
-    //glad_glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 1, 1000);
     
     SDL_RenderPresent(data->screen);
 
     SDL_GL_SwapWindow(data->window);
-
-    //time_t tend = SDL_GetPerformanceCounter();
-    //float telapsed = (float)(tend - tstart) / SDL_GetPerformanceFrequency() * 1000;
-    //SDL_Delay(floor(stpf - telapsed));
 
     return stop;
 }
@@ -313,38 +286,4 @@ static GLuint make_buffer(Graphics_Data *gdata, const GLenum type, const GLenum 
     
     gdata->buffers[gdata->num_buffers++] = buff;
     return buff;
-}
-
-
-static uint8_t handle_keys(SDL_Event ev, uint8_t velo) {
-    switch (ev.key.key) {
-        case SDLK_LEFT:
-            velo &= ~1U;
-            velo |= ev.key.down;
-            break;
-        case SDLK_RIGHT:
-            velo &= ~(1U << 4);
-            velo |= ev.key.down << 4;
-            break;
-        case SDLK_LSHIFT:
-            velo &= ~(1U << 1);
-            velo |= ev.key.down << 1;
-            break;
-        case SDLK_SPACE:
-            velo &= ~(1U << 5);
-            velo |= ev.key.down << 5;
-            break;
-        case SDLK_DOWN:
-            velo &= ~(1U << 2);
-            velo |= ev.key.down << 2;
-            break;
-        case SDLK_UP:
-            velo &= ~(1U << 6);
-            velo |= ev.key.down << 6;
-            break;
-        default:
-            break;
-    }
-
-    return velo;
 }

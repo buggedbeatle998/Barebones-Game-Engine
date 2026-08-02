@@ -1,6 +1,12 @@
 #include "world.h"
 
+
 #include "engine/sprites.h"
+
+#define SPEED 5
+
+
+static void handle_move(Sprites *sprites, Keys *keys);
 
 
 int world_init(Sprites *sprites) {
@@ -15,9 +21,11 @@ int world_init(Sprites *sprites) {
 }
 
 
-int world_step(Sprites *sprites) {
-    matrix_translate(sprites, 1, 1, 0);
-    update_range(sprites, 1, 1, true, false, false, false);
+int world_step(Sprites *sprites, Keys *keys) {
+    handle_move(sprites, keys);
+
+    //matrix_translate(sprites, 1, 1, 0);
+    //update_range(sprites, 1, 1, true, false, false, false);
 
     return 0;
 }
@@ -25,4 +33,14 @@ int world_step(Sprites *sprites) {
 
 void world_destroy(void) {
     
+}
+
+
+void handle_move(Sprites *sprites, Keys *keys) {
+    int chx = key_get_pressed(keys, SDLK_RIGHT) - key_get_pressed(keys, SDLK_LEFT);
+    int chy = key_get_pressed(keys, SDLK_UP) - key_get_pressed(keys, SDLK_DOWN);
+    if (chx || chy) {
+        matrix_translate(sprites, 1, chx * SPEED, chy * SPEED);
+        update_range(sprites, 1, 1, true, false, false, false);
+    }
 }
