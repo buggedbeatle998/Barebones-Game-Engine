@@ -4,7 +4,7 @@
 
 #include "engine/public_structs.h"
 
-#define FPS 60
+#define FPS 120
 
 
 static const char *sheet_files[] = {"../assets/tex_fonts.png", "../assets/tex_test.png"};

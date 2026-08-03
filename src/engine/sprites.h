@@ -10,6 +10,16 @@ void sprite_pop(Sprites *sprites, int num);
 int  sprites_len(Sprites *sprites);
 
 void matrix_set(Sprites *sprites, int idx, int scalex, int scaley, int posx, int posy);
+void matrix_set_pos(Sprites *sprites, int idx, int posx, int posy);
+void matrix_set_scale(Sprites *sprites, int idx, int scalex, int scaley);
+void matrix_set_angle(Sprites *sprites, int idx, float angle);
+
+int  matrix_get_posx(Sprites *sprites, int idx);
+int  matrix_get_posy(Sprites *sprites, int idx);
+int  matrix_get_scalex(Sprites *sprites, int idx);
+int  matrix_get_scaley(Sprites *sprites, int idx);
+int  matrix_get_angle(Sprites *sprites, int idx, float angle);
+
 void matrix_translate(Sprites *sprites, int idx, int changex, int changey);
 void matrix_scale(Sprites *sprites, int idx, float scalex, float scaley);
 void matrix_rotate(Sprites *sprites, int idx, float angle);

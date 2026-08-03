@@ -11,9 +11,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../../include/stb_image.h"
 
-#define SPEED 0.05f
-
-#define rand_float(lower, upper) ((float)rand() / RAND_MAX * ((upper) - (lower)) + (lower))
+//#define rand_float(lower, upper) ((float)rand() / RAND_MAX * ((upper) - (lower)) + (lower))
 
 
 typedef struct {
@@ -74,7 +72,7 @@ int graphics_init(Graphics_Data *data, const size_t num_sheets, const char *shee
 
     SDL_GLContext context = SDL_GL_CreateContext(data->window);
     SDL_GL_MakeCurrent(data->window, context);
-    SDL_GL_SetSwapInterval(1);
+    SDL_GL_SetSwapInterval(0);
     gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress);
 
     int temp_w;
@@ -148,29 +146,20 @@ int graphics_init(Graphics_Data *data, const size_t num_sheets, const char *shee
     glad_glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    data->velo = 0U;
+    glad_glUseProgram(data->render);
+
     return 0;
 }
 
 
 int graphics_step(Graphics_Data *data) {
-    int width, height;
-    int stop = 0;
-
-    SDL_RenderClear(data->screen);
-    SDL_GetWindowSize(data->window, &width, &height);
-    glad_glViewport(0, 0, width, height);
-
-    glad_glUseProgram(data->render);
-
     glad_glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     glad_glDrawArraysIndirect(GL_TRIANGLE_STRIP, 0);
-    
-    SDL_RenderPresent(data->screen);
 
     SDL_GL_SwapWindow(data->window);
 
-    return stop;
+    return 0;
 }
 
 

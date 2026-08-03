@@ -15,8 +15,6 @@
 
 
 typedef struct {
-    float main_cam[6];
-    uint8_t velo;
     SDL_Window *window;
     SDL_Renderer *screen;
     GLuint render;

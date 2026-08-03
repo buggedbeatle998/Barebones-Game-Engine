@@ -21,7 +21,47 @@ int sprites_len(Sprites *sprites) {
 
 
 void matrix_set(Sprites *sprites, int idx, int scalex, int scaley, int posx, int posy) {
-    trans_base(sprites->mat_pos + 16 * idx, scalex, scaley, (float)posx / tex_w, (float)posy / tex_h);
+    trans_base(sprites->mat_pos + 16 * idx, (float)scalex / tex_w, (float)(-scaley) / tex_h, (float)posx / tex_w, (float)posy / tex_h);
+}
+
+
+void matrix_set_pos(Sprites *sprites, int idx, int posx, int posy) {
+    trans_set_pos(sprites->mat_pos + 16 * idx, (float)posx / tex_w, (float)posy / tex_h);
+}
+
+
+void matrix_set_scale(Sprites *sprites, int idx, int scalex, int scaley) {
+    trans_set_scale(sprites->mat_pos + 16 * idx, (float)scalex / tex_w, (float)(-scaley) / tex_h);
+}
+
+
+void matrix_set_angle(Sprites *sprites, int idx, float angle) {
+    trans_set_angle(sprites->mat_pos + 16 * idx, angle);
+}
+
+
+int matrix_get_posx(Sprites *sprites, int idx) {
+    return trans_get_posx(sprites->mat_pos + 16 * idx);
+}
+
+
+int matrix_get_posy(Sprites *sprites, int idx) {
+    return trans_get_posy(sprites->mat_pos + 16 * idx);
+}
+
+
+int matrix_get_scalex(Sprites *sprites, int idx) {
+    return trans_get_scalex(sprites->mat_pos + 16 * idx);
+}
+
+
+int matrix_get_scaley(Sprites *sprites, int idx) {
+    return trans_get_scaley(sprites->mat_pos + 16 * idx);
+}
+
+
+int matrix_get_angle(Sprites *sprites, int idx, float angle) {
+    return trans_get_angle(sprites->mat_pos + 16 * idx);
 }
 
 
