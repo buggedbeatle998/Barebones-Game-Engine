@@ -9,7 +9,7 @@
 static void handle_move(Sprites *sprites, Keys *keys);
 
 
-static const Font *pxl_font = &(Font){0, 0, 0, 5, 7, 1, 1, 2, 47};
+static const Font *pxl_font = &(Font){0, 0, 0, 5, 7, 1, 1, 2, 19};
 static int jump = 0;
 static int height = 0;
 
@@ -21,6 +21,7 @@ int world_init(Sprites *sprites) {
     sprite_append(sprites, 1, 32, 0, 32, 32, -10, 10, 640, 80);
     update_num(sprites);
     update_range(sprites, 0, 3, true, true, true, true);
+    draw_text(sprites, pxl_font, 0, "Hello, World!", 0, 1, 1, 10, 20, 10, 10);
 
     return 0;
 }
